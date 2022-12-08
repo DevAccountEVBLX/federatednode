@@ -13,7 +13,7 @@ services:
       context: ./extras/docker/bitcoin
     volumes:
       - ./config/bitcoin:/root/.bitcoin-config
-      - bitcoin-data:/root/.bitcoin/
+      - bitcoin-data:/root/.xep/
     logging:
       driver: "json-file"
       options:
@@ -29,7 +29,7 @@ services:
       - "16816:16816"
       - "28832:28832"
     environment:
-      - PARAMS=-conf=/root/.bitcoin-config/bitcoin.conf
+      - PARAMS=-conf=/root/.bitcoin-config/xep.conf
 
   bitcoin-base-testnet:
     hostname: ${HOSTNAME_BASE}-bc-t
@@ -150,7 +150,7 @@ services:
     volumes:
       - ./src/armory-utxsvr:/armory-utxsvr
       - armory-data:/root/.armory
-      - bitcoin-data:/root/.bitcoin/
+      - bitcoin-data:/root/.xep/
     logging:
       driver: "json-file"
       options:
