@@ -1,31 +1,31 @@
 FROM counterparty/base
 
-MAINTAINER Counterparty Developers <dev@counterparty.io>
+MAINTAINER Electra Protocol Developers <team@electraprotocol.com>
 
 # install bitcoin core
-ENV BITCOIN_VER="24.0"
-ENV BITCOIN_FOLDER_VER="24.0"
-ENV BITCOIN_SHASUM="fb86cf6af7a10bc5f3ae6cd6a5b0348854e1462102fe71e755d30b51b6e317d1"
+ENV BITCOIN_VER="1.0.4.0"
+ENV BITCOIN_FOLDER_VER="1.0.4.0"
+ENV BITCOIN_SHASUM="C787647ACDB19045A3F98910BF9F69EF23CB4EA330412702E067EC433AA2BB9B"
 WORKDIR /tmp
 
-RUN wget --no-check-certificate -O bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_VER}/bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
+RUN wget --no-check-certificate -O Linux_${BITCOIN_VER}_CLI.tar.gz https://github.com/ElectraProtocol/XEP-Core/releases/download/v{BITCOIN_VER}/Linux_{BITCOIN_VER}_CLI.tar.gz
 
-RUN myhash=$(sha256sum "bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz" | cut -d' ' -f1); \
+RUN myhash=$(sha256sum "Linux_${BITCOIN_VER}_CLI.tar.gz" | cut -d' ' -f1); \
     if [ "$myhash" = "$BITCOIN_SHASUM" ] ; \
         then echo "checksum ok"; \
-        else echo "checksum failed for bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz"; exit 255 ; \
+        else echo "checksum failed for Linux_${BITCOIN_VER}_CLI.tar.gz"; exit 255 ; \
     fi
-RUN tar -xvzf bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz
-RUN install -C -m 755 -o root -g root --backup=off bitcoin-${BITCOIN_FOLDER_VER}/bin/* /usr/local/bin/
-RUN rm bitcoin-${BITCOIN_VER}-x86_64-linux-gnu.tar.gz && rm -rf bitcoin-${BITCOIN_FOLDER_VER}
+RUN tar -xvzf Linux_${BITCOIN_VER}_CLI.tar.gz
+RUN install -C -m 755 -o root -g root --backup=off Linux_${BITCOIN_FOLDER_VER}_CLI/* /usr/local/bin/
+RUN rm Linux_${BITCOIN_VER}_CLI.tar.gz && rm -rf Linux_${BITCOIN_FOLDER_VER}_CLI
 
 # Set up bitcoind dirs and files
-RUN mkdir -p /root/.bitcoin/
-COPY bitcoin.conf /root/.bitcoin/
+RUN mkdir -p /root/.xep/
+COPY xep.conf /root/.xep/
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod a+x /usr/local/bin/start.sh
 
-EXPOSE 8332 8333 18332 18333
+EXPOSE 16816 16817 18332 18333
 
 # NOTE: Defaults to running on mainnet, specify -e TESTNET=1 to start up on testnet
 ENTRYPOINT ["start.sh"]

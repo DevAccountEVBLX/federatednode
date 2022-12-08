@@ -26,17 +26,17 @@ SCRIPTDIR = os.path.dirname(os.path.realpath(__file__))
 FEDNODE_CONFIG_FILE = ".fednode.config"
 FEDNODE_CONFIG_PATH = os.path.join(SCRIPTDIR, FEDNODE_CONFIG_FILE)
 
-REPO_BASE_HTTPS = "https://github.com/CounterpartyXCP/{}.git"
-REPO_BASE_SSH = "git@github.com:CounterpartyXCP/{}.git"
+REPO_BASE_HTTPS = "https://github.com/DevAccountEVBLX/{}.git"
+REPO_BASE_SSH = "git@github.com:DevAccountEVBLX/{}.git"
 REPOS_BASE = ['counterparty-lib', 'counterparty-cli', 'addrindexrs']
 REPOS_COUNTERBLOCK = REPOS_BASE + ['counterblock', ]
 REPOS_FULL = REPOS_COUNTERBLOCK + ['counterwallet', 'armory-utxsvr', 'xcp-proxy']
 
 HOST_PORTS_USED = {
-    'base': [8332, 18332, 8432, 18432, 4000, 14000],
+    'base': [16816, 18332, 8432, 18432, 4000, 14000],
     'base_extbtc': [8432, 18432, 4000, 14000],
-    'counterblock': [8332, 18332, 8432, 18432, 4000, 14000, 4100, 14100, 27017],
-    'full': [8332, 18332, 8432, 18432, 4000, 14000, 4100, 14100, 80, 443, 27017]
+    'counterblock': [16816, 18332, 8432, 18432, 4000, 14000, 4100, 14100, 27017],
+    'full': [16816, 18332, 8432, 18432, 4000, 14000, 4100, 14100, 80, 443, 27017]
 }
 VOLUMES_USED = {
     'base': ['bitcoin-data', 'addrindexrs-data', 'counterparty-data'],
